@@ -1,0 +1,6 @@
+example.org {
+    file zones/example.org {
+      upstream 8.8.8.8
+    }
+    log
+}

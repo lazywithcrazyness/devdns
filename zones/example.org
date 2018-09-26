@@ -1,0 +1,15 @@
+; https://en.wikipedia.org/wiki/Zone_file
+$ORIGIN example.org.
+$TTL 10
+
+@       IN SOA   ns.example.org. hostmaster.example.org. (1 2h 1h 2w 10s)
+@       IN NS    ns
+ns      IN A     127.0.0.1
+        IN AAAA  ::1
+@       IN A     127.0.0.1
+        IN AAAA  ::1
+*       IN A     127.0.0.1
+        IN AAAA  ::1
+felix   IN CNAME felixhummel.de.
+
+; vim: set ft=dns :
