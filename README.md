@@ -13,7 +13,7 @@ But it can delegate a whole zone.
 
 # Assumptions / Prerequisites
 - NetworkManager on 127.0.0.1 contains dnsmasq, that can be configured via
-  `/etc/NetworkManager/dnsmasq.d/`.
+  `/etc/NetworkManager/dnsmasq.d/` (for Ubuntu 18.04: see below).
 - Docker and Docker Compose (see [NOTES.md](NOTES.md)) for manual installation
 
 
@@ -59,3 +59,25 @@ python -mhttp.server 9876
 - http://example.org:9876/
 - http://foo.example.org:9876/
 
+
+# Ubuntu 18.04
+Disable resolved's stub resolver:
+```
+sudo -i
+systemd --version  # >= 232 (https://unix.stackexchange.com/a/358485/120440)
+echo 'DNSStubListener=no' >> /etc/systemd/resolved.conf
+systemctl restart systemd-resolved
+```
+
+Enable dnsmasq in NetworkManager putting `dns=dnsmasq` into
+`/etc/NetworkManager/NetworkManager.conf`, e.g.:
+```
+# /etc/NetworkManager/NetworkManager.conf
+[main]
+dns=dnsmasq
+```
+
+And restart NetworkManager:
+```
+systemctl restart NetworkManager
+```
